@@ -26,6 +26,9 @@ app.use(express.urlencoded({extended:false}));
 app.get("/", function(rec, res){   //esto me dice que es la pág inicial (index.ejs)
     res.render("index");
 })
+app.get("/index_buscador", function(rec, res){   //esto me dice que es la pág inicial (index.ejs)
+    res.render("index_buscador");
+});
 
 //comenzar
 
