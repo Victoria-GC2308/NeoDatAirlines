@@ -29,6 +29,9 @@ app.get("/", function(rec, res){   //esto me dice que es la pág inicial (index.
 app.get("/index_buscador", function(rec, res){   //esto me dice que es la pág inicial (index.ejs)
     res.render("index_buscador");
 });
+app.get("/index_about", function(rec, res){   //esto me dice que es la pág inicial (index.ejs)
+    res.render("index_about");
+});
 
 //comenzar
 

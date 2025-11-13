@@ -163,9 +163,9 @@
                 </div>
                 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-success btn-lg">
+                    <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-search"></i>
                          Buscar Vuelos
-                    </button><i class="fas fa-search"></i>
+                    </button>
                 </div>
             </form>
         </div>
@@ -173,109 +173,60 @@
         <!-- Resultados de búsqueda (simulados) -->
         <section class="resultados mt-4">
             <h2 class="mb-4">Vuelos Encontrados</h2>
-            <div id="lista_vuelos">
-                <!-- Vuelo 1 -->
-                <div class="card vuelo-card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h5 class="card-title mb-0">
-                                        <i class="fas fa-plane-departure text-primary"></i> Buenos Aires (EZE) 
-                                        <i class="fas fa-arrow-right mx-2"></i> 
-                                        <i class="fas fa-plane-arrival text-success"></i> Shangai (CHI)
-                                    </h5>
-                                    <span class="badge bg-primary ms-2 badge-clase">Turista</span>
-                                </div>
-                                <div class="text-muted mb-2">
-                                    <i class="far fa-calendar-alt"></i> 08 Nov 2024 - 22:00 | 09 Nov 2024 - 14:30
-                                </div>
-                                <div class="text-muted">
-                                    <i class="fas fa-plane"></i> NeoDat Airlines | <i class="fa-solid fa-couch"></i> Asientos disponibles: 12
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <div class="precio-destacado">$125.000</div>
-                                <small class="text-muted">Precio por persona</small>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEquipaje" data-vuelo="1">
-                                     Seleccionar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="contenedor-cards" class="">
+                 <script>
+                    const lista = ["Argentina", "España", "China","Francia"];
+                    // 1. Obtener el contenedor donde se añadirán las cards
+                    const contenedor = document.getElementById("contenedor-cards");
+                    let htmlCards = ""; // Variable para almacenar el HTML generado
 
-                <!-- Vuelo 2 -->
-                <div class="card vuelo-card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h5 class="card-title mb-0">
-                                        <i class="fas fa-plane-departure text-primary"></i> Buenos Aires (EZE) 
-                                        <i class="fas fa-arrow-right mx-2"></i> 
-                                        <i class="fas fa-plane-arrival text-success"></i> Madrid (MAD)
-                                    </h5>
-                                    <span class="badge bg-success ms-2 badge-clase">Ejecutiva</span>
-                                </div>
-                                <div class="text-muted mb-2">
-                                    <i class="far fa-calendar-alt"></i> 08 Nov 2024 - 18:30 | 09 Nov 2024 - 16:45
-                                </div>
-                                <div class="text-muted">
-                                    <i class="fas fa-plane"></i> Iberia | <i class="fa-solid fa-couch"></i> Asientos disponibles: 5
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <div class="precio-destacado">$218.500</div>
-                                <small class="text-muted">Precio por persona</small>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEquipaje" data-vuelo="2">
-                                   Seleccionar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    // Iterar sobre la lista para obtener cada país (elemento)
+                    lista.forEach(elemento => {
+                      // 2. Construir la plantilla HTML (template literal)
+                      // Usamos ${elemento} para insertar el valor del país en <p class="card-text">
+                      const cardHTML = `
+                        <div class="card vuelo-card">
+                                  <div class="card-body">
+                                      <div class="row align-items-center">
+                                          <div class="col-md-8">
+                                              <div class="d-flex align-items-center mb-2">
+                                                  <h5 class="card-title mb-0">
+                                                      <i class="fas fa-plane-departure text-primary"></i> Buenos Aires (EZE) 
+                                                      <i class="fas fa-arrow-right mx-2"></i> 
+                                                      <i class="fas fa-plane-arrival text-success"></i> Shangai (CHI)
+                                                  </h5>
+                                                  <span class="badge bg-primary ms-2 badge-clase">Turista</span>
+                                              </div>
+                                              <div class="text-muted mb-2">
+                                                  <i class="far fa-calendar-alt"></i> 08 Nov 2024 - 22:00 | 09 Nov 2024 - 14:30
+                                              </div>
+                                              <div class="text-muted">
+                                                  <i class="fas fa-plane"></i> NeoDat Airlines | <i class="fa-solid fa-couch"></i> Asientos disponibles: 12
+                                              </div>
+                                          </div>
+                                          <div class="col-md-2 text-center">
+                                              <div class="precio-destacado">$125.000</div>
+                                              <small class="text-muted">Precio por persona</small>
+                                          </div>
+                                          <div class="col-md-2">
+                                              <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEquipaje" data-vuelo="1">
+                                                  Seleccionar
+                                              </button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                      `;
+                      // 3. Acumular el HTML de cada card
+                      htmlCards += cardHTML;
+                    });
 
-                <!-- Vuelo 3 -->
-                <div class="card vuelo-card">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                <div class="d-flex align-items-center mb-2">
-                                    <h5 class="card-title mb-0">
-                                        <i class="fas fa-plane-departure text-primary"></i> Paris (FRAN) 
-                                        <i class="fas fa-arrow-right mx-2"></i> 
-                                        <i class="fas fa-plane-arrival text-success"></i> Madrid (MAD)
-                                    </h5>
-                                    <span class="badge bg-warning ms-2 badge-clase">Primera</span>
-                                </div>
-                                <div class="text-muted mb-2">
-                                    <i class="far fa-calendar-alt"></i> 09 Nov 2024 - 01:15 | 09 Nov 2024 - 20:30
-                                </div>
-                                <div class="text-muted">
-                                    <i class="fas fa-plane"></i> Air Europa | <i class="fa-solid fa-couch"></i> Asientos disponibles: 3
-                                </div>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <div class="precio-destacado">$332.000</div>
-                                <small class="text-muted">Precio por persona</small>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalEquipaje" data-vuelo="3">
-                                    Seleccionar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
+                    // 4. Insertar todo el HTML generado en el contenedor
+                    // Esto genera 3 cards con sus respectivos países.
+                    contenedor.innerHTML = htmlCards; 
+    </script>
+</div>
+</section>
     
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-success btn-lg" id="btnConfirmarReserva">
