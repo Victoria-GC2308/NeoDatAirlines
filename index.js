@@ -61,41 +61,53 @@ app.post("/usuario", function(rec, res) {
     const busqueda = `SELECT password, email FROM usuario WHERE "${loginPassword}" AND "${mail_registrado}"`;
     //acá idem línea 40 
     conexion.query(busqueda, function(error, rows) {
-        if(error) {
-            throw error;
-        }
-        else if(busqueda.length > 0) {
-            console.log("Usuario encontrado.");
-        }
+        if (error) {
+    console.error("Error en la consulta", error);
+    return res.render("index_buscador", {
+        error: "Error en la búsqueda",
+        vuelos: [],
+        cantidad: 0,
+        busquedaRealizada: false
     });
-})
-app.post("/index_buscador", function(req,res){
-    const datos =req.body;
+}
+
+
+    });
+});
+
+app.get("/index_buscador", function(req, res) {
+    res.render("index_buscador", {
+        vuelos: [],
+        cantidad: 0,
+        busquedaRealizada: false
+    });
+});
+
+app.post("/index_buscador", function(req, res) {
+    const datos = req.body;
     let origen = datos.origen;
     let destino = datos.destino;
     let partida = datos.partida;
-    let pasajero = datos.pasajero ||1; // porque la fecha de regreso es opcional 
-    let consulta = `SELECT *FROM vuelo WHERE salida = ? AND destino = ? AND salida >=?`;
-    let parametros = [origen, destino, partida];
-    
-    consulta += `ORDER BY salida ASC`;
+    let pasajero = datos.pasajero || 1;
 
-    console.log("Ejecutando consulta:", consulta);
-    console.log("Parámetros:", parametros);
-    conexion.query(consulta, parametros, function(error, resultados){
-        if(error){
+    let consulta = `SELECT * FROM vuelo WHERE salida = ? AND destino = ? AND salida >= ? ORDER BY salida ASC`;
+    let parametros = [origen, destino, partida];
+
+    conexion.query(consulta, parametros, function(error, resultados) {
+        if (error) {
             console.error("Error en la consulta", error);
             return res.render("index_buscador", {
                 error: "Error en la búsqueda",
-            vuelos: []});
-
+                vuelos: [],
+                cantidad: 0,
+                busquedaRealizada: true
+            });
         }
-        console.log("resultadoes encontrados:", resultados.length);
-        res.json({
-            success: true,
+
+        res.render("index_buscador", {
             vuelos: resultados,
             cantidad: resultados.length,
-            busquedaRealiada: true
+            busquedaRealizada: true
         });
     });
 });
